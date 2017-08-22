@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+	<name>mod_astraslider</name>
+	<creationDate>August 2017</creationDate>
+	<copyright>Copyright (C) 2017. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<author>Aleksandr Bessarab</author>
+	<authorEmail>info@astra-link.com.ua</authorEmail>
+	<authorUrl>https://astra-link.com.ua</authorUrl>
+	<version>1.0.0</version>
+	<description>MOD_ASTRASLIDER_XML_DESCRIPTION</description>
+
+	<files>
+		<filename module="mod_astraslider">mod_astraslider.php</filename>
+		<filename>helper.php</filename>
+		<folder>units</folder>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.mod_astraslider.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_astraslider.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.mod_astraslider.sys.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.mod_astraslider.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="infos" type="alinfo" />
+				<field name="infosparams1" type="alparams" />
+			</fieldset>
+			<fieldset name="layoutfielset" label="MOD_ASTRASLIDER_LAYOUT_FIELDSET_LABEL" >
+				<field
+					name="sliderlayout"
+					type="allayout"
+					label="MOD_ASTRASLIDER_LAYOUT_LABEL"
+					description="MOD_ASTRASLIDER_LAYOUT_DESC"
+					default="over"
+					>
+					<option value="over">img:layout_over.png</option>
+					<option value="horizontal">img:layout_horizontal.png</option>
+					<option value="vertical">img:layout_vertical.png</option>
+				</field>
+			</fieldset>
+			<fieldset name="editionfieldset" label="MOD_ASTRASLIDER_SOURCE_FIELDSET_LABEL" addfieldpath="/modules/mod_astraslider/units">
+				<field
+					name="infosparams2"
+					type="alparams"
+					/>
+				<field
+					name="source"
+					type="alsource"
+					label="MOD_ASTRASLIDER_SELECT_SOURCE_LABEL"
+					description="MOD_ASTRASLIDER_SELECT_SOURCE_DESC"
+					icon="folder_add.png"
+					default="folder"
+				>
+					<option value="folder">MOD_ASTRASLIDER_FOLDER</option>
+					<option value="jshop">JoomShopping</option>
+				</field>
+				<field
+					name="folder"
+					type="alfolder"
+					label="MOD_ASTRASLIDER_SELECT_FOLDER_LABEL"
+					description="MOD_ASTRASLIDER_SELECT_FOLDER_DESC"
+					icon="folder.png"
+					default="media/com_sliderck/images/slides"
+					showon="source:folder"
+					/>
+					<field 
+					name="catids" 
+					type="categories" default = "" 
+					label="Categories" 
+					description="Categories" 
+					addfieldpath="/modules/mod_jshopping_tophits_products/element"
+					showon="source:jshop"
+					/>
+					<field 
+              name="product_order_by" 
+              type="list" 
+              default="prod.name" 
+              label="Product Order By" 
+              description="Sort product by one of these." 
+              showon="source:jshop"
+          />
+                    <option value="name">MOD_ASTRASLIDER_Product Title</option>
+                    <option value="prod.product_price">Product Price</option>
+                    <option value="prod.reviews_count">Product Reviews</option>
+                    <option value="prod.hits">Product Hits</option>
+                    <option value="prod.product_id">Product ID</option>
+                    <option value="prod.product_date_added">Created Date</option>
+                    <option value="prod.date_modify">Modified Date</option>
+                </field>
+                <field name="product_order_dir" type="list" default="group.topten" label="Product Order Dir" description="product order dir" showon="source:jshop">
+                     <option value="asc">ASC</option>
+                    <option value="desc">DESC</option>
+                </field>
+			</fieldset>
+			<fieldset name="optionsfieldset" label="MOD_ASTRASLIDER_OPTIONS_FIELDSET_LABEL" >
+				<field
+					name="spacerdisplay"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_DISPLAY_LABEL"
+					style="title"
+					/>
+				<field
+					name="height"
+					type="alradio"
+					label="MOD_ASTRASLIDER_HEIGHT_LABEL"
+					description="MOD_ASTRASLIDER_HEIGHT_DESC"
+					icon="height.png"
+					class="btn-group"
+					default="fixed"
+					>
+					<option value="auto">MOD_ASTRASLIDER_AUTO</option>
+					<option value="fixed">MOD_ASTRASLIDER_FIXED_HEIGHT</option>
+				</field>
+				<field
+					name="heightvalue"
+					type="altext"
+					label="MOD_ASTRASLIDER_HEIGHT_VALUE_LABEL"
+					description="MOD_ASTRASLIDER_HEIGHT_VALUE_DESC"
+					icon="text_signature.png"
+					showon="height:fixed"
+					default="250"
+					/>
+				<field
+					name="forceimageheight"
+					type="alradio"
+					label="MOD_ASTRASLIDER_FORCE_IMAGE_HEIGHT_LABEL"
+					description="MOD_ASTRASLIDER_FORCE_IMAGE_HEIGHT_DESC"
+					icon="layer-resize-replicate-vertical.png"
+					class="btn-group"
+					default="1"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="navigationbuttons"
+					type="alradio"
+					label="MOD_ASTRASLIDER_NAVIGATION_BUTTONS_LABEL"
+					description="MOD_ASTRASLIDER_NAVIGATION_BUTTONS_DESC"
+					icon="navigation.png"
+					class="btn-group"
+					default="1"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="pagination"
+					type="allist"
+					label="MOD_ASTRASLIDER_PAGINATION_LABEL"
+					description="MOD_ASTRASLIDER_PAGINATION_DESC"
+					icon="edit-list-order.png"
+					default="bullets"
+					>
+					<option value="none">MOD_ASTRASLIDER_NONE</option>
+					<option value="bullets">MOD_ASTRASLIDER_PAGINATION_BULLETS</option>
+					<option value="progress">MOD_ASTRASLIDER_PAGINATION_PROGRESS</option>
+					<option value="fraction">MOD_ASTRASLIDER_PAGINATION_FRACTION</option>
+					<option value="thumbs">MOD_ASTRASLIDER_PAGINATION_THUMBS</option>
+				</field>
+				<field
+					name="thumbsheight"
+					type="altext"
+					label="MOD_ASTRASLIDER_THUMBS_HEIGHT_LABEL"
+					description="MOD_ASTRASLIDER_THUMBS_HEIGHT__DESC"
+					icon="height.png"
+					default="100"
+					showon="pagination:thumbs"
+					/>
+				<field
+					name="thumbsnumber"
+					type="altext"
+					label="MOD_ASTRASLIDER_THUMBS_NUMBER_LABEL"
+					description="MOD_ASTRASLIDER_THUMBS_NUMBER_DESC"
+					icon="application_view_icons.png"
+					default="5"
+					showon="pagination:thumbs"
+					/>
+				<field
+					name="slidesperview"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_VIEW_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_VIEW_DESC"
+					icon="application_view_tile.png"
+					default="auto"
+					/>
+				<field
+					name="slidespergroup"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_GROUP_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_GROUP_DESC"
+					icon="application_side_expand.png"
+					default="1"
+					/>
+				<field
+					name="slidespercolumn"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_DESC"
+					icon="application_tile_vertical.png"
+					default="1"
+					/>
+				<field
+					name="spacebetween"
+					type="altext"
+					label="MOD_ASTRASLIDER_SPACE_BETWEEN_LABEL"
+					description="MOD_ASTRASLIDER_SPACE_BETWEEN_DESC"
+					icon="edit-alignment-justify-distribute.png"
+					default="30"
+					/>
+				<field
+					name="centeredslides"
+					type="alradio"
+					label="MOD_ASTRASLIDER_CENTERED_SLIDES_LABEL"
+					description="MOD_ASTRASLIDER_CENTERED_SLIDES_DESC"
+					icon="category-item.png"
+					class="btn-group"
+					default="true"
+					>
+					<option value="true">JYES</option>
+					<option value="false">JNO</option>
+				</field>
+				<field
+					name="initialslide"
+					type="altext"
+					label="MOD_ASTRASLIDER_INITIAL_SLIDE_LABEL"
+					description="MOD_ASTRASLIDER_INITIAL_SLIDE_DESC"
+					icon="star.png"
+					default="1"
+					/>
+				<field
+					name="numberslides"
+					type="altext"
+					label="MOD_ASTRASLIDER_NUMBER_SLIDES_LABEL"
+					description="MOD_ASTRASLIDER_NUMBER_SLIDES_DESC"
+					icon="application_cascade.png"
+					default=""
+					/>
+				<field
+					name="shuffle"
+					type="alradio"
+					label="MOD_ASTRASLIDER_SHUFFLE_LABEL"
+					description="MOD_ASTRASLIDER_SHUFFLE_DESC"
+					icon="arrow_switch.png"
+					class="btn-group"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="spacertext"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_TEXT_LABEL"
+					style="title"
+					/>
+				<field
+					name="showcaption"
+					type="alradio"
+					label="MOD_ASTRASLIDER_SHOW_CAPTION_LABEL"
+					description="MOD_ASTRASLIDER_SHOW_CAPTION_DESC"
+					icon="switch.png"
+					class="btn-group"
+					default="1"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="showtitle"
+					type="alradio"
+					label="MOD_ASTRASLIDER_SHOW_TITLE_LABEL"
+					description="MOD_ASTRASLIDER_SHOW_TITLE_DESC"
+					icon="switch.png"
+					class="btn-group"
+					default="1"
+					showon="showcaption:1"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="showdescription"
+					type="alradio"
+					label="MOD_ASTRASLIDER_SHOW_DESCRIPTION_LABEL"
+					description="MOD_ASTRASLIDER_SHOW_DESCRIPTION_DESC"
+					icon="switch.png"
+					class="btn-group"
+					default="1"
+					showon="showcaption:1"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="textlength"
+					type="altext"
+					label="MOD_ASTRASLIDER_TEXT_LENGTH_LABEL"
+					description="MOD_ASTRASLIDER_TEXT_LENGTH_DESC"
+					icon="text_signature.png"
+					default="100"
+					/>
+				<field
+					name="spacereffect"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_EFFECT_LABEL"
+					style="title"
+					/>
+				<field
+					name="effect"
+					type="allist"
+					label="MOD_ASTRASLIDER_EFFECT_LABEL"
+					description="MOD_ASTRASLIDER_EFFECT_DESC"
+					icon="chart_curve.png"
+					default="slide"
+					>
+					<option value="slide">Slide</option>
+					<option value="fade">Fade</option>
+					<option value="cube">Cube</option>
+					<option value="coverflow">Coverflow</option>
+					<option value="flip">Flip</option>
+				</field>
+				<field
+					name="freemode"
+					type="alradio"
+					label="MOD_ASTRASLIDER_FREE_MODE_LABEL"
+					description="MOD_ASTRASLIDER_FREE_MODE_DESC"
+					icon="layout-select.png"
+					class="btn-group"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="speed"
+					type="altext"
+					label="MOD_ASTRASLIDER_SPEED_LABEL"
+					description="MOD_ASTRASLIDER_SPEED_DESC"
+					icon="hourglass.png"
+					default="300"
+					/>
+				<field
+					name="loop"
+					type="alradio"
+					label="MOD_ASTRASLIDER_LOOP_LABEL"
+					description="MOD_ASTRASLIDER_LOOP_DESC"
+					icon="control_repeat.png"
+					class="btn-group"
+					default="0"
+					>
+					<option value="true">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="autoplay"
+					type="alradio"
+					label="MOD_ASTRASLIDER_AUTOPLAY_LABEL"
+					description="MOD_ASTRASLIDER_AUTOPLAY_DESC"
+					icon="control_play.png"
+					class="btn-group"
+					default="0"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="autoplaytime"
+					type="altext"
+					label="MOD_ASTRASLIDER_AUTOPLAY_TIME_LABEL"
+					description="MOD_ASTRASLIDER_AUTOPLAY_TIME_DESC"
+					icon="hourglass.png"
+					default="300"
+					showon="autoplay:1"
+					/>
+				<field
+					name="spacerlink"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_LINK_SPACER_LABEL"
+					style="title"
+					/>
+				<field
+					name="linkposition"
+					type="allist"
+					label="MOD_ASTRASLIDER_LINK_POSITION_LABEL"
+					description="MOD_ASTRASLIDER_LINK_POSITION_DESC"
+					icon="link.png"
+					default="fullslide"
+					>
+					<option value="fullslide">MOD_ASTRASLIDER_LINK_FULLSLIDE</option>
+					<option value="caption">MOD_ASTRASLIDER_LINK_CAPTION</option>
+					<option value="title">MOD_ASTRASLIDER_LINK_TITLE</option>
+					<option value="button">MOD_ASTRASLIDER_LINK_BUTTON</option>
+					<option value="none">MOD_ASTRASLIDER_NONE</option>
+				</field>
+				<field
+					name="linkbuttontext"
+					type="altext"
+					label="MOD_ASTRASLIDER_LINK_BUTTON_TEXT_LABEL"
+					description="MOD_ASTRASLIDER_LINK_BUTTON_TEXT_DESC"
+					icon="text_signature.png"
+					default="MOD_ASTRASLIDER_LINK_BUTTON_TEXT"
+					showon="linkposition:button"
+					/>
+				<field
+					name="linkbuttonclass"
+					type="altext"
+					label="MOD_ASTRASLIDER_LINK_BUTTON_CLASS_LABEL"
+					description="MOD_ASTRASLIDER_LINK_BUTTON_CLASS_DESC"
+					icon="css.png"
+					default="btn"
+					showon="linkposition:button"
+					/>
+				<field
+					name="linkautoimage"
+					type="alradio"
+					label="MOD_ASTRASLIDER_LINK_AUTOIMAGE_LABEL"
+					description="MOD_ASTRASLIDER_LINK_AUTOIMAGE_DESC"
+					icon="link.png"
+					default="0"
+					class="btn-group"
+					>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field
+					name="linktarget"
+					type="allist"
+					label="MOD_ASTRASLIDER_LINK_TARGET_LABEL"
+					description="MOD_ASTRASLIDER_LINK_TARGET_DESC"
+					icon="link_go.png"
+					default="fullslide"
+					>
+					<option value="same">MOD_ASTRASLIDER_LINK_SAME_WINDOW</option>
+					<option value="new">MOD_ASTRASLIDER_LINK_NEW_WINDOW</option>
+				</field>
+				<field
+					name="spacerlightbox"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_LIGHTBOX_SPACER_LABEL"
+					style="title"
+					showon="source:folder"
+					/>
+				<field
+					name="lightbox"
+					type="allist"
+					label="MOD_ASTRASLIDER_LIGHTBOX_LABEL"
+					description="MOD_ASTRASLIDER_LIGHTBOX_DESC"
+					icon="magnifier.png"
+					default="mediabox"
+					showon="source:folder"
+					>
+					<option value="mediabox">MOD_ASTRASLIDER_LIGHTBOX_MEDIABOX</option>
+					<option value="other">MOD_ASTRASLIDER_LIGHTBOX_OTHER</option>
+					<option value="none">MOD_ASTRASLIDER_NONE</option>
+				</field>
+				<field
+					name="lightboxattrib"
+					type="altext"
+					label="MOD_ASTRASLIDER_LIGHTBOX_ATTRIB_LABEL"
+					description="MOD_ASTRASLIDER_LIGHTBOX_ATTRIB_DESC"
+					icon="text_signature.png"
+					default="rel"
+					showon="lightbox:other"
+					/>
+				<field
+					name="lightboxattribvalue"
+					type="altext"
+					label="MOD_ASTRASLIDER_LIGHTBOX_ATTRIB_VALUE_LABEL"
+					description="MOD_ASTRASLIDER_LIGHTBOX_ATTRIB_VALUE_DESC"
+					icon="text_signature.png"
+					default="lightbox"
+					showon="lightbox:other"
+					/>
+			</fieldset>
+			<fieldset name="stylesfieldset" label="MOD_ASTRASLIDER_STYLES_FIELDSET_LABEL" >
+				<field
+					name="styles"
+					type="alstyle"
+					label="MOD_ASTRASLIDER_SELECT_STYLE_LABEL"
+					description="MOD_ASTRASLIDER_SELECT_STYLE_DESC"
+					icon="palette.png"
+					default=""
+					/>
+			</fieldset>
+			<fieldset name="responsivefieldset" label="MOD_ASTRASLIDER_RESPONSIVE_FIELDSET_LABEL">
+				<field
+					name="responsivespacer"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_RESPONSIVE_DESC"
+					style="info"
+					/>
+				<field
+					name="responsive1spacer"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_RESPONSIVE1_LABEL"
+					style="title"
+					/>
+				<field
+					name="responsive1activate"
+					type="alradio"
+					label="MOD_ASTRASLIDER_RESPONSIVE_ACTIVATE_LABEL"
+					icon="switch.png"
+					default="0"
+					class="btn-group"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="responsive1resolution"
+					type="altext"
+					label="MOD_ASTRASLIDER_RESPONSIVE_RESOLUTION_LABEL"
+					description="MOD_ASTRASLIDER_RESPONSIVE_RESOLUTION_DESC"
+					icon="width.png"
+					default="320"
+					suffix="px"
+				/>
+				<field
+					name="responsive1slidesperview"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_VIEW_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_VIEW_DESC"
+					icon="application_view_tile.png"
+					default="1"
+					/>
+				<field
+					name="responsive1slidespercolumn"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_DESC"
+					icon="application_tile_vertical.png"
+					default="1"
+					/>
+				<field
+					name="responsive1slidespergroup"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_GROUP_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_GROUP_DESC"
+					icon="application_side_expand.png"
+					default="1"
+					/>
+				<field
+					name="responsive1spacebetween"
+					type="altext"
+					label="MOD_ASTRASLIDER_SPACE_BETWEEN_LABEL"
+					description="MOD_ASTRASLIDER_SPACE_BETWEEN_DESC"
+					icon="edit-alignment-justify-distribute.png"
+					default="10"
+					/>
+				
+				<field
+					name="responsive2spacer"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_RESPONSIVE2_LABEL"
+					style="title"
+					/>
+				<field
+					name="responsive2activate"
+					type="alradio"
+					label="MOD_ASTRASLIDER_RESPONSIVE_ACTIVATE_LABEL"
+					icon="switch.png"
+					default="0"
+					class="btn-group"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="responsive2resolution"
+					type="altext"
+					label="MOD_ASTRASLIDER_RESPONSIVE_RESOLUTION_LABEL"
+					description="MOD_ASTRASLIDER_RESPONSIVE_RESOLUTION_DESC"
+					icon="width.png"
+					default="480"
+					suffix="px"
+				/>
+				<field
+					name="responsive2slidesperview"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_VIEW_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_VIEW_DESC"
+					icon="application_view_tile.png"
+					default="2"
+					/>
+				<field
+					name="responsive2slidespercolumn"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_DESC"
+					icon="application_tile_vertical.png"
+					default="1"
+					/>
+				<field
+					name="responsive2slidespergroup"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_GROUP_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_GROUP_DESC"
+					icon="application_side_expand.png"
+					default="1"
+					/>
+				<field
+					name="responsive2spacebetween"
+					type="altext"
+					label="MOD_ASTRASLIDER_SPACE_BETWEEN_LABEL"
+					description="MOD_ASTRASLIDER_SPACE_BETWEEN_DESC"
+					icon="edit-alignment-justify-distribute.png"
+					default="20"
+					/>
+					
+				<field
+					name="responsive3spacer"
+					type="alspacer"
+					label="MOD_ASTRASLIDER_RESPONSIVE3_LABEL"
+					style="title"
+					/>
+				<field
+					name="responsive3activate"
+					type="alradio"
+					label="MOD_ASTRASLIDER_RESPONSIVE_ACTIVATE_LABEL"
+					icon="switch.png"
+					default="0"
+					class="btn-group"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field
+					name="responsive3resolution"
+					type="altext"
+					label="MOD_ASTRASLIDER_RESPONSIVE_RESOLUTION_LABEL"
+					description="MOD_ASTRASLIDER_RESPONSIVE_RESOLUTION_DESC"
+					icon="width.png"
+					default="640"
+					suffix="px"
+				/>
+				<field
+					name="responsive3slidesperview"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_VIEW_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_VIEW_DESC"
+					icon="application_view_tile.png"
+					default="3"
+					/>
+				<field
+					name="responsive3slidespercolumn"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_COLUMN_DESC"
+					icon="application_tile_vertical.png"
+					default="1"
+					/>
+				<field
+					name="responsive3slidespergroup"
+					type="altext"
+					label="MOD_ASTRASLIDER_SLIDES_PER_GROUP_LABEL"
+					description="MOD_ASTRASLIDER_SLIDES_PER_GROUP_DESC"
+					icon="application_side_expand.png"
+					default="1"
+					/>
+				<field
+					name="responsive3spacebetween"
+					type="altext"
+					label="MOD_ASTRASLIDER_SPACE_BETWEEN_LABEL"
+					description="MOD_ASTRASLIDER_SPACE_BETWEEN_DESC"
+					icon="edit-alignment-justify-distribute.png"
+					default="30"
+					/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+					 />
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+					icon="text_signature.png" />
+				<field
+					name="cache"
+					type="list"
+					default="1"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC" >
+					<option	value="1">JGLOBAL_USE_GLOBAL</option>
+					<option	value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+				<field
+					name="cache_time"
+					type="text"
+					default="900"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC"
+					icon="hourglass.png"
+					suffix="min" />
+				<field
+					name="cachemode"
+					type="hidden"
+					default="itemid" >
+					<option	value="itemid"></option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
